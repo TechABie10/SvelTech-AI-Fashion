@@ -1,0 +1,93 @@
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SvelTech - AI Fashion</title>
+    
+    <!-- Environment Variables Polyfill -->
+    <script>
+      // Initialize process.env safely
+      window.process = window.process || { env: {} };
+      
+      const config = {
+        API_KEY: "YOUR_GEMINI_API_KEY",
+        VITE_SUPABASE_URL: "https://your-project.supabase.co",
+        VITE_SUPABASE_ANON_KEY: "your-anon-key",
+        VITE_CLOUDINARY_CLOUD_NAME: "dqvjbz1yx", 
+        VITE_CLOUDINARY_UPLOAD_PRESET: "svel_project"
+      };
+
+      // Populate process.env only with valid non-placeholder values
+      Object.entries(config).forEach(([key, val]) => {
+        const isPlaceholder = !val || 
+          val.includes('your-project') || 
+          val.includes('YOUR_') || 
+          val.includes('your-anon') ||
+          val.includes('your-cloud-name');
+          
+        if (!isPlaceholder) {
+          window.process.env[key] = val;
+        } else {
+          // Provide empty string to prevent "process.env.API_KEY is not defined" errors
+          window.process.env[key] = "";
+        }
+      });
+
+      // Special case: Ensure API_KEY is at least an empty string for GenAI SDK
+      if (!window.process.env.API_KEY) {
+        window.process.env.API_KEY = "";
+      }
+    </script>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: 'class',
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+            },
+          },
+        },
+      }
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+      body { font-family: 'Inter', sans-serif; transition: background-color 0.3s ease, color 0.3s ease; }
+      .glass-effect {
+        background: rgba(255, 255, 255, 0.7);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+      }
+      .dark .glass-effect {
+        background: rgba(15, 15, 15, 0.7);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+      .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+      .custom-scrollbar::-webkit-scrollbar-thumb { background: #4F46E5; border-radius: 10px; }
+    </style>
+  <script type="importmap">
+{
+  "imports": {
+    "react-router-dom": "https://esm.sh/react-router-dom@^7.11.0",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.562.0",
+    "@google/genai": "https://esm.sh/@google/genai@^1.34.0",
+    "@supabase/supabase-js": "https://esm.sh/@supabase/supabase-js@^2.89.0"
+  }
+}
+</script>
+</head>
+  <body class="bg-gray-50 text-gray-900 dark:bg-zinc-950 dark:text-zinc-100">
+    <div id="root"></div>
+    <!-- Entry point -->
+    <script type="module" src="/index.tsx"></script>
+  </body>
+</html>

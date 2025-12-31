@@ -1,0 +1,8 @@
+{
+  "name": "SvelTech AI Fashion",
+  "description": "An AI-powered fashion assistant with a virtual closet, intelligent outfit generation, and a vibrant style community.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
